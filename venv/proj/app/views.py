@@ -60,7 +60,7 @@ def changepassword(request):
 @csrf_exempt
 def fetchproducts(request):
     products = Products.objects.all()
-    data = serialize("json",products,fields=("product_name","product_type ","product_price", "product_dicount" , "product_quanity" ))
+    data = serialize("json",products,fields=("product_name","product_type ","product_price", "product_dicount" , "final_price" , "product_quanity" , "product_image" ))
     return HttpResponse(data, content_type="application/json" , status=status.HTTP_200_OK )
 
 
@@ -72,6 +72,9 @@ def addtocart(request):
         product_type = cartway.get("product_type")
         product_price = cartway.get("product_price")
         product_discount = cartway.get("product_discount")
+        final_price = cartway.get(product_price-product_discount)
+        product_quantity = cartway.get()  #Willl come to finish up
+        product_image = cartway.get("product_image")
         authstatus = request.User.is_authenticated()
         if authstatus :
             newcartitem = Cart.objects.create(product_name=product_name,product_type=product_type,product_price=product_price,product_discount=product_discount)
@@ -99,7 +102,24 @@ def deletefromcart(request):
 @csrf_exempt
 def fetchcartitems(request):
     cartitems = Cart.objects.all()
-    data = serialize("json",cartitems,fields=("product_name","product_type ","product_price", "product_dicount"))
+    data = serialize("json",cartitems,fields=("product_name","product_type ","product_price", "final_price" , "product_dicount","product_image"))
     return HttpResponse(data,content_type="application/json")
 
 
+# add post Items
+@csrf_exempt
+def postitems(request):
+    if request.method == "POST":
+        way = json.loads(request.body)
+        product_name = way.get("product_name")
+        product_type = way.get("product_type")
+        product_price = way.get("product_price")
+        product_discount = way.get("product_discount")
+        final_price = product_price-product_discount
+        product_quantity = way.get("product_quantity")
+        product_image = way.get("product_image")
+        newitem = Cart.objects.create(product_name=product_name,product_type=product_type,product_price=product_price,product_discount=product_discount,final_price=final_price,product_quantity=product_quantity,product_image=product_image)
+        newitem.save()
+        return JsonResponse({"message":"Item added to the store" , "status":status.HTTP_201_CREATED })
+
+    return JsonResponse({"message":"To post items" , "status":status.HTTP_201_CREATED})
