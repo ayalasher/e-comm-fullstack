@@ -60,5 +60,5 @@ def changepassword(request):
 
 def fetchproducts(request):
     products = Products.objects.all()
-    data = serialize("json",list,fields=("product_name","product_type ","product_price", "product_dicount" , "product_quanity" ))
+    data = serialize("json",products,fields=("product_name","product_type ","product_price", "product_dicount" , "product_quanity" ))
     return HttpResponse(data, content_type="application/json" , status=status.HTTP_200_OK )
