@@ -57,7 +57,7 @@ def changepassword(request):
         return JsonResponse({"message":"password change not successful","status":status.HTTP_400_BAD_REQUEST})
 
 
-
+@csrf_exempt
 def fetchproducts(request):
     products = Products.objects.all()
     data = serialize("json",products,fields=("product_name","product_type ","product_price", "product_dicount" , "product_quanity" ))
