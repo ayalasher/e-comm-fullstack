@@ -5,6 +5,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , logout , login
+from .models import Products
+from django.core.serializers import serialize
 
 from rest_framework import status
 # Create your views here
@@ -54,3 +56,9 @@ def changepassword(request):
     else:
         return JsonResponse({"message":"password change not successful","status":status.HTTP_400_BAD_REQUEST})
 
+
+
+def fetchproducts(request):
+    products = Products.objects.all()
+    data = serialize("json",list,fields=("product_name","product_type ","product_price", "product_dicount" , "product_quanity" ))
+    return HttpResponse(data, content_type="application/json" , status=status.HTTP_200_OK )
