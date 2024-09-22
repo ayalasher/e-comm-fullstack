@@ -59,13 +59,13 @@ body{
     margin: auto;
     justify-content: center;
     justify-self: center;
-    padding-left: 27%;
+    align-items: center;
 }
 
 .btndiv{
     margin: auto;
     justify-content: center;
     justify-self: center;
-    padding-left: 37%;
+    align-items: center;
 }
 
