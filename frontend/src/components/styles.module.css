@@ -9,17 +9,12 @@ body{
 }
 
 @media screen and  (min-width: 310px ) and (max-width: 450px ){
-
-}
-
-
-
-
+    
 .forminputs{
     border-radius: 5px;
     border: 1px solid rgb(97, 97, 97,0.6);
     height: 25px;
-    width: 60%;
+    width: 90%;
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -36,19 +31,20 @@ body{
 
 .fieldset{
     border-radius: 10px;
+    border: 1px solid grey;
     align-items: center;
     align-content: center;
     justify-content: center;
     align-self: center;
     color: white;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 20px !important ;
+    margin-right: 20px  !important ;
     justify-content: center;
     margin-top: 70px;
 }
 
 .bordertesting{
-    padding: 15px;
+    padding: 20px;
     margin-top: 0px;
     text-align: center;
     font-size: x-large;
@@ -60,6 +56,7 @@ body{
     justify-content: center;
     justify-self: center;
     align-items: center;
+    padding-left: 13%;
 }
 
 .btndiv{
@@ -67,5 +64,133 @@ body{
     justify-content: center;
     justify-self: center;
     align-items: center;
+    padding-left: 50%;
+}
+
+.footerdiv{
+    align-items: center;
+    text-align: center;
+}
+
+.link{
+   text-decoration: none; 
+   padding: 5px;
+   border-radius: 5px;
+   background-color: black;
+   color: white;
+}
+
+.footerdivtxt{
+    color: black;
+    margin-right: 20px;
+}
+
+.header{
+    text-align: center;
+}
+
+h1{
+    font-weight: bolder;
+}
+}
+
+@media screen and  (min-width: 450px ) and (max-width: 990px ){
+    .fieldset{
+        border-radius: 10px;
+        border: 1px solid grey;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        align-self: center;
+        color: white;
+        margin-left: 100px !important ;
+        margin-right: 100px !important ;
+        justify-content: center;
+        margin-top: 70px;
+    }
+}
+
+
+.forminputs{
+    border-radius: 5px;
+    border: 1px solid rgb(97, 97, 97,0.6);
+    height: 25px;
+    width: 90%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.submitbutton{
+    color: white;
+    background-color: black;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    
+}
+
+.fieldset{
+    border-radius: 10px;
+    border: 1px solid grey;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    align-self: center;
+    color: white;
+    margin-left: 400px;
+    margin-right: 400px;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+.bordertesting{
+    padding: 20px;
+    margin-top: 0px;
+    text-align: center;
+    font-size: x-large;
+    font-weight: 900;
+}
+
+.inputdiv{
+    margin: auto;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    padding-left: 13%;
+}
+
+.btndiv{
+    margin: auto;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    padding-left: 50%;
+}
+
+.footerdiv{
+    align-items: center;
+    text-align: center;
+}
+
+.link{
+   text-decoration: none; 
+   padding: 5px;
+   border-radius: 5px;
+   background-color: black;
+   color: white;
+}
+
+.footerdivtxt{
+    color: black;
+    margin-right: 0px;
+}
+
+.header{
+    text-align: center;
+}
+
+h1{
+    font-weight: bolder;
 }
 
