@@ -23,6 +23,8 @@ def createsuer(request):
         newuser = User.objects.create_user(username=username,email=useremail,password=userpassword)
         newuser.save()
         return JsonResponse({"message":"user created succesfully","status":status.HTTP_201_CREATED})
+    else:
+        return JsonResponse({"message":"error creatring the user"})
     
 @csrf_exempt
 def userlogin(request):
@@ -33,9 +35,15 @@ def userlogin(request):
         user = authenticate(request, username=username,password=userpassword)
         if user is not None:
             login(request,user)
+            global returnusername
+            global returnuseremail 
+            returnusername = user.username
+            returnuseremail = user.email
             return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"userpassword":user.email})
         else:
             return JsonResponse({"message":"user not authenticated","status":status.HTTP_401_UNAUTHORIZED})
+        
+    return JsonResponse({"message":"auth OK","username":returnusername,"useremail":returnuseremail})
 
 @csrf_exempt
 def userlogout(request):

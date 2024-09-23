@@ -8,20 +8,20 @@ export default function Login() {
     const [username , setusername] = useState("")
     const [userpassword, setuserpassword] = useState("")
 
-    const loginfuntion = ()=>{
+
+    let  dataobject = {
+        username:username,
+        password:userpassword
+    }
+    const loginfuntion = ()=>{        
         // let  userlogin ;
         // let password ;
-         data = axios.post("http://localhost:8000/userlogin/",{
-            username: username,
-            password: userpassword
-        },{
+         let data = axios.post("http://localhost:8000/userlogin/",dataobject,{
             headers:{
                 "Content-Type":"application/json"
             }
         }).then(()=>{
-            // data =JSON.parse(upload)
-            htrial = JSON.stringify(data)
-            console.log(htrial);
+           console.log(data);
             console.log('Testing');
             
             
