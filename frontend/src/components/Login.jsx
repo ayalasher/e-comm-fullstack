@@ -1,10 +1,36 @@
 import styles from "./styles.module.css"
-import {Link}  from 'react-router-dom'
+import {json, Link}  from 'react-router-dom'
 import { useState } from "react"
 import { useEffect } from "react"
+import axios, {Axios} from 'axios'
 
 export default function Login() {
-    return <div>
+    const [username , setusername] = useState("")
+    const [userpassword, setuserpassword] = useState("")
+
+    const loginfuntion = ()=>{
+        // let  userlogin ;
+        // let password ;
+         data = axios.post("http://localhost:8000/userlogin/",{
+            username: username,
+            password: userpassword
+        },{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }).then(()=>{
+            // data =JSON.parse(upload)
+            htrial = JSON.stringify(data)
+            console.log(htrial);
+            console.log('Testing');
+            
+            
+        }).catch((err)=>{
+            console.log(err);
+            
+        })
+    }
+    return <div> 
 
         <div className={styles.header} >
             <h1>M-shop</h1>
@@ -19,15 +45,15 @@ export default function Login() {
         <form >
             <fieldset className={styles.fieldset} >
                 <div className={styles.inputdiv} >
-                    <input className={styles.forminputs} type="email" name="useremail" id="useremail" placeholder="Enter email"  />
+                    <input className={styles.forminputs} type="text" name="username" id="username" placeholder="Enter username" onChange={(e)=>setusername(e.target.value)}  />
                     <br />
                     <br />
-                    <input className={styles.forminputs} type="password" name="userpassword" id="userpassword" placeholder="Enter password" />
+                    <input className={styles.forminputs} type="password" name="userpassword" id="userpassword" placeholder="Enter password" onChange={(e)=>setuserpassword(e.target.value)} />
                     <br />
                     <br />
                 </div>
                <div className={styles.btndiv} >
-                    <button className={styles.submitbutton} >Log in</button>
+                    <button onClick={loginfuntion} className={styles.submitbutton} >Log in</button>
                     <br />
                     <br />
                     <br />
