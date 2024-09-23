@@ -77,7 +77,7 @@ def addtocart(request):
         product_image = cartway.get("product_image")
         authstatus = request.User.is_authenticated()
         if authstatus :
-            newcartitem = Cart.objects.create(product_name=product_name,product_type=product_type,product_price=product_price,product_discount=product_discount)
+            newcartitem = Cart.objects.create(product_name=product_name,product_type=product_type,product_price=product_price,product_discount=product_discount,final_price=final_price,product_quantity=product_quantity,product_image=product_image)
             newcartitem.save()
             return JsonResponse({"message":"item added to cart","status":status.HTTP_200_OK})
         else:
