@@ -19,26 +19,26 @@ def createsuer(request):
         createway = json.loads(request.body)
         username = createway.get("username")
         useremail = createway.get("useremail")
-        userpassword = createway.get("usepassword")
-        newuser = User.objects.create_user(username=username,useremail=useremail,userpassword=userpassword)
+        userpassword = createway.get("userpassword")
+        newuser = User.objects.create_user(username=username,email=useremail,password=userpassword)
         newuser.save()
         return JsonResponse({"message":"user created succesfully","status":status.HTTP_201_CREATED})
     
 @csrf_exempt
-def login(request):
+def userlogin(request):
     if request.method == "POST":
-        loginway = json.loads(request.method)
-        useremail = loginway.get("useremail")
-        userpassword = loginway.get("usepassword")
-        auth = authenticate(request, email=useremail,password=userpassword)
-        if auth is not None:
-            login(request,auth)
-            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK})
+        loginway = json.loads(request.body)
+        username = loginway.get("username")
+        userpassword = loginway.get("userpassword")
+        user = authenticate(request, username=username,password=userpassword)
+        if user is not None:
+            login(request,user)
+            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"userpassword":user.password})
         else:
             return JsonResponse({"message":"user not authenticated","status":status.HTTP_401_UNAUTHORIZED})
 
 @csrf_exempt
-def logout(request):
+def userlogout(request):
     logout(request)
     return JsonResponse({"message":"user logged out","status":status.HTTP_200_OK})
 
