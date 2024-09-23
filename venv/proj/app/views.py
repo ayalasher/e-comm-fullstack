@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , logout , login
 from .models import Products , Cart
 from django.core.serializers import serialize
-
+from django_daraja.mpesa.core import MpesaClient
 from rest_framework import status
 # Create your views here
 def greeting(request):
@@ -123,3 +123,16 @@ def postitems(request):
         return JsonResponse({"message":"Item added to the store" , "status":status.HTTP_201_CREATED })
 
     return JsonResponse({"message":"To post items" , "status":status.HTTP_201_CREATED})
+
+
+@csrf_exempt
+def mpesadaraja(request):
+    cl = MpesaClient()
+    # Use a Safaricom phone number that you have access to, for you to be able to view the prompt.
+    phone_number = '0745405309'
+    amount = 1
+    account_reference = 'reference'
+    transaction_desc = 'Description'
+    callback_url = 'https://api.darajambili.com/express-payment'
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
