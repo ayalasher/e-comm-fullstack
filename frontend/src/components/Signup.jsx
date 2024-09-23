@@ -2,7 +2,38 @@ import styles from './styles.module.css'
 import {Link}  from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import axios from 'axios'
 export default function Signup() {
+    const [useremail,setuseremail] = useState("")
+    const [username,setusername] =   useState("")
+    const [userpassword , setuserpassword ] = useState("")
+    const [cuserpassword , setcuserpassword] = useState("")
+
+
+    let dataobject = {
+        useremail:useremail,
+        username:username,
+        userpassword:userpassword
+    }
+
+    const signupfuntion = ()=>{
+       if (userpassword==cuserpassword) {
+        let data = axios.post("http://localhost:8000/createuser/",dataobject,{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }).then(()=>{
+            console.log(data);
+            
+        }).catch((err)=>{
+            console.log(err);
+            
+        })
+       } else {
+        console.log("passwords are not equal");
+        
+       }
+    }
     return <div>
         <div className={styles.header} >
             <h1>M-shop</h1>
@@ -17,21 +48,21 @@ export default function Signup() {
         <form >
             <fieldset className={styles.fieldset} >
                 <div className={styles.inputdiv} >
-                    <input className={styles.forminputs} type="email" name="useremail" id="useremail" placeholder="Set email"  />
+                    <input className={styles.forminputs} type="email" name="useremail" id="useremail" placeholder="Set email" onChange={(e)=>setuseremail(e.target.value)}  />
                     <br />
                     <br />
-                    <input className={styles.forminputs} type="text" name='username'  id='username' placeholder='create username' />
+                    <input className={styles.forminputs} type="text" name='username'  id='username' placeholder='create username' onChange={(e)=>setusername(e.target.value)} />
                     <br />
                     <br />
-                    <input className={styles.forminputs} type="password" name="userpassword" id="userpassword" placeholder="Enter password" />
+                    <input className={styles.forminputs} type="password" name="userpassword" id="userpassword" placeholder="Enter password" onChange={(e)=>setuserpassword(e.target.value)} />
                     <br />
                     <br />
-                    <input className={styles.forminputs} type="password" name="cuserpassword" id="cuserpassword" placeholder="Confirm password" />
+                    <input className={styles.forminputs} type="password" name="cuserpassword" id="cuserpassword" placeholder="Confirm password" onChange={(e)=>setcuserpassword(e.target.value)} />
                     <br />
                     <br />
                 </div>
                <div className={styles.btndiv} >
-                    <button className={styles.submitbutton} >Sign up</button>
+                    <button onClick={signupfuntion} className={styles.submitbutton} >Sign up</button>
                     <br />
                     <br />
                </div>
