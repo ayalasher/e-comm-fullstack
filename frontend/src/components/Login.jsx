@@ -17,7 +17,7 @@ export default function Login() {
         <form >
             <fieldset className={styles.fieldset} >
                 <div className={styles.inputdiv} >
-                    <input className={styles.forminputs} type="text" name="useremail" id="useremail" placeholder="Enter email"  />
+                    <input className={styles.forminputs} type="email" name="useremail" id="useremail" placeholder="Enter email"  />
                     <br />
                     <br />
                     <input className={styles.forminputs} type="password" name="userpassword" id="userpassword" placeholder="Enter password" />
