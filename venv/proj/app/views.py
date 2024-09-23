@@ -33,7 +33,7 @@ def userlogin(request):
         user = authenticate(request, username=username,password=userpassword)
         if user is not None:
             login(request,user)
-            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"userpassword":user.password})
+            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"userpassword":user.email})
         else:
             return JsonResponse({"message":"user not authenticated","status":status.HTTP_401_UNAUTHORIZED})
 
