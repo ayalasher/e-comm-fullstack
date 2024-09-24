@@ -45,7 +45,7 @@ def userlogin(request):
         else:
             return JsonResponse({"message":"user not authenticated","status":status.HTTP_401_UNAUTHORIZED})
         
-    return JsonResponse({"message":"auth OK","username":returnusername,"useremail":returnuseremail})
+    # return JsonResponse({"message":"auth OK","username":returnusername,"useremail":returnuseremail})
 
 @csrf_exempt
 def userlogout(request):

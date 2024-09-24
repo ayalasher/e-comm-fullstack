@@ -1,19 +1,21 @@
 import styles from "./styles.module.css"
 import {json, Link}  from 'react-router-dom'
 import { useState } from "react"
-import { useEffect } from "react"
-import axios, {Axios} from 'axios'
+
+import axios from 'axios'
+import Landingpage from "./Landingpage"
 
 export default function Login() {
     const [username , setusername] = useState("")
     const [userpassword, setuserpassword] = useState("")
+    const [auth , setauth] = useState([])
 
 
     let  dataobject = {
         username:username,
         userpassword:userpassword
     }
-    const loginfuntion = ()=>{        
+    let loginfuntion = ()=>{        
         // let  userlogin ;
         // let password ;
          let data = axios.post("http://localhost:8000/userlogin/",dataobject,{
@@ -21,14 +23,24 @@ export default function Login() {
                 "Content-Type":"application/json"
             }
         }).then(()=>{
-           console.log(data);
-            console.log('Testing');
+           console.log(json(data));
+           
+        //     console.log('Testing');
             
             
         }).catch((err)=>{
-            console.log(err);
+            // console.log(err);
             
         })
+
+        // const results = data.data
+        // console.log(results);
+
+        // let afterauth = setauth(data)
+        // console.log(afterauth);
+        
+        // auth ? <Login/> : <Landingpage/>
+        
     }
     return <div> 
 

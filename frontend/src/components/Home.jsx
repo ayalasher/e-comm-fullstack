@@ -1,5 +1,5 @@
-export default function Home() {
+export default function Home(){
     return <div>
-        <p>Home for our application</p>
+        <p>view products without auth</p>
     </div>
 }
