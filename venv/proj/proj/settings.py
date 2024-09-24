@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'app',
     'django_daraja',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'proj.urls'
@@ -128,6 +130,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'/proj/images')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST=[
+#     'http://localhost:5173/login',
+#     'http://localhost:5173/Signup',
+# ]
 
 # The Mpesa environment to use
 # Possible values: sandbox, production
