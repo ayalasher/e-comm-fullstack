@@ -53,7 +53,7 @@ export default function Login() {
                     <br />
                 </div>
                <div className={styles.btndiv} >
-                    <button onClick={loginfuntion} className={styles.submitbutton} >Log in</button>
+                    <button onClick={loginfuntion} type="submit" className={styles.submitbutton} >Log in</button>
                     <br />
                     <br />
                     <br />

@@ -26,6 +26,8 @@ def createsuer(request):
     else:
         return JsonResponse({"message":"error creatring the user"})
     
+    # return JsonResponse({"message":"auth OK","username":returnusername})
+    
 @csrf_exempt
 def userlogin(request):
     if request.method == "POST":

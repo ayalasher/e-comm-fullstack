@@ -16,23 +16,23 @@ export default function Signup() {
         userpassword:userpassword
     }
 
-    const signupfuntion = ()=>{
+    const signupfuntion = async ()=>{
        if (userpassword==cuserpassword) {
-        let data = axios.post("http://localhost:8000/createuser/",dataobject,{
+        let newuser = await axios.post('http://localhost:8000/createuser/',dataobject,{
             headers:{
                 "Content-Type":"application/json"
             }
         }).then(()=>{
-            console.log(data);
+            console.log(newuser);
+            
             
         }).catch((err)=>{
             console.log(err);
             
         })
-       } else {
-        console.log("passwords are not equal");
-        
-       }
+       }const outcome =await newuser.data;
+       console.log(outcome);
+       
     }
     return <div>
         <div className={styles.header} >
@@ -62,7 +62,7 @@ export default function Signup() {
                     <br />
                 </div>
                <div className={styles.btndiv} >
-                    <button onClick={signupfuntion} className={styles.submitbutton} >Sign up</button>
+                    <button onClick={signupfuntion} type='submit' className={styles.submitbutton} >Sign up</button>
                     <br />
                     <br />
                </div>
