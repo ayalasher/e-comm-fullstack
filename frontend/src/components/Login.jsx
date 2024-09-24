@@ -15,16 +15,16 @@ export default function Login() {
         username:username,
         userpassword:userpassword
     }
-    let loginfuntion = ()=>{        
+      function loginfuntion (){        
         // let  userlogin ;
         // let password ;
-         let data = axios.post("http://localhost:8000/userlogin/",dataobject,{
+         let data =   axios.post("http://localhost:8000/userlogin/",dataobject,{
             headers:{
                 "Content-Type":"application/json"
             }
         }).then(()=>{
-           console.log(json(data));
-           setauth(true)
+            console.log(json(data));
+        //    setauth(true)
            
         //     console.log('Testing');
             
@@ -43,6 +43,8 @@ export default function Login() {
         // auth ? <Login/> : <Landingpage/>
         
     }
+   dataobject ? loginfuntion  : console.log("No data entered");
+
     return <div> 
 
         <div className={styles.header} >
@@ -66,7 +68,7 @@ export default function Login() {
                     <br />
                 </div>
                <div className={styles.btndiv} >
-                    <button onClick={loginfuntion()} type="submit" className={styles.submitbutton} >Log in</button>
+                    <button onClick={loginfuntion} type="submit" className={styles.submitbutton} >Log in</button>
                     <br />
                     <br />
                     <br />
