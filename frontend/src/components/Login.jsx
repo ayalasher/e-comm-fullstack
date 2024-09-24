@@ -8,7 +8,7 @@ import Landingpage from "./Landingpage"
 export default function Login() {
     const [username , setusername] = useState("")
     const [userpassword, setuserpassword] = useState("")
-    const [auth , setauth] = useState([])
+    const [auth , setauth] = useState(false)
 
 
     let  dataobject = {
@@ -24,6 +24,7 @@ export default function Login() {
             }
         }).then(()=>{
            console.log(json(data));
+           setauth(true)
            
         //     console.log('Testing');
             
