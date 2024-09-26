@@ -1,9 +1,7 @@
 import styles from "./styles.module.css"
 import {json, Link}  from 'react-router-dom'
 import { useState } from "react"
-
 import axios from 'axios'
-import Landingpage from "./Landingpage"
 
 export default function Login() {
     const [username , setusername] = useState("")
