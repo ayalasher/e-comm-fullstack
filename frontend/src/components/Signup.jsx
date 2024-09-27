@@ -34,7 +34,7 @@ export default function Signup() {
     }
     return <div>
         <div className={styles.header} >
-            <h1>M-shop</h1>
+            <h3>M-shop</h3>
             {/* <p>Your online one stop shop</p> */}
         </div>
 
