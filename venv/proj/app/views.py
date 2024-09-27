@@ -25,6 +25,7 @@ def createsuer(request):
         return JsonResponse({"message":"user created succesfully","status":status.HTTP_201_CREATED})
     else:
         return JsonResponse({"message":"error creatring the user"})
+        
     
     # return JsonResponse({"message":"auth OK","username":returnusername})
     
@@ -44,6 +45,9 @@ def userlogin(request):
             return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"userpassword":user.email})
         else:
             return JsonResponse({"message":"user not authenticated","status":status.HTTP_401_UNAUTHORIZED})
+        
+    else:
+        return JsonResponse({"message":"POST method only"})
         
     # return JsonResponse({"message":"auth OK","username":returnusername,"useremail":returnuseremail})
 

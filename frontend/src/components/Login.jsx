@@ -8,41 +8,21 @@ export default function Login() {
     const [userpassword, setuserpassword] = useState("")
     const [auth , setauth] = useState(false)
 
+    function loginfuntion (){        
+        
+         axios.post("http://localhost:8000/userlogin/",{
+            "username":username,
+            "userpassword":userpassword,
 
-    let  dataobject = {
-        username:username,
-        userpassword:userpassword
-    }
-      function loginfuntion (){        
-        // let  userlogin ;
-        // let password ;
-         let data =   axios.post("http://localhost:8000/userlogin/",dataobject,{
-            headers:{
-                "Content-Type":"application/json"
-            }
-        }).then(()=>{
-            console.log(json(data));
-        //    setauth(true)
-           
-        //     console.log('Testing');
-            
-            
+         }).then((response)=>{    
+        console.log(response.data);
+        setauth(true)
         }).catch((err)=>{
-            // console.log(err);
-            
-        })
-
-        // const results = data.data
-        // console.log(results);
-
-        // let afterauth = setauth(data)
-        // console.log(afterauth);
-        
-        // auth ? <Login/> : <Landingpage/>
+            console.log(err);
+            console.log("Error fetching data");
+        }) ; 
         
     }
-   dataobject ? loginfuntion  : console.log("No data entered");
-
     return <div> 
 
         <div className={styles.header} >
@@ -66,7 +46,7 @@ export default function Login() {
                     <br />
                 </div>
                <div className={styles.btndiv} >
-                    <button onClick={loginfuntion} type="submit" className={styles.submitbutton} >Log in</button>
+                    <button onClick={loginfuntion} className={styles.submitbutton} >Log in</button>
                     <br />
                     <br />
                     <br />

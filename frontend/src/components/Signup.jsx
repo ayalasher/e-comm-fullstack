@@ -1,38 +1,36 @@
 import styles from './styles.module.css'
-import {Link}  from 'react-router-dom'
+import { Link}  from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+
+
+
 export default function Signup() {
     const [useremail,setuseremail] = useState("")
     const [username,setusername] =   useState("")
     const [userpassword , setuserpassword ] = useState("")
     const [cuserpassword , setcuserpassword] = useState("")
+    const [isauth , setisauth] = useState(false)
 
 
-    let dataobject = {
-        useremail:useremail,
-        username:username,
-        userpassword:userpassword
-    }
-
+   
     const signupfuntion = async ()=>{
        if (userpassword==cuserpassword) {
-        let newuser = await axios.post('http://localhost:8000/createuser/',dataobject,{
-            headers:{
-                "Content-Type":"application/json"
-            }
-        }).then(()=>{
-            console.log(newuser);
-            
-            
+        await axios.post('http://localhost:8000/createuser/',{
+           "username":username,
+           "useremail":useremail,
+           "userpassword":userpassword
+        }).then((response)=>{
+          console.log(response);
+          setisauth(true)
         }).catch((err)=>{
             console.log(err);
             
         })
-       }const outcome =await newuser.data;
-       console.log(outcome);
-       
+       }else{
+        alert("Passwords not equal")
+       }   
     }
     return <div>
         <div className={styles.header} >
@@ -62,7 +60,7 @@ export default function Signup() {
                     <br />
                 </div>
                <div className={styles.btndiv} >
-                    <button onClick={signupfuntion} type='submit' className={styles.submitbutton} >Sign up</button>
+                    <button onClick={signupfuntion}  className={styles.submitbutton} >Sign up</button>
                     <br />
                     <br />
                </div>
