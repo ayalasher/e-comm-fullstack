@@ -1,6 +1,6 @@
 import React from "react"
 import styles from './styles.module.css'
-import {Link} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import axios from "axios"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
@@ -12,19 +12,18 @@ import { useState } from "react"
 export default function Home(){
 
     const [products , setProducts] = useState([])
-
+    const [loading, setLoading] = useState(true)
+ 
     useEffect(()=>{
-        let data = axios.get("http://localhost:8000/fetchproducts").then((response)=>{
-           console.log(response);
-           console.log(data);
-           setProducts(data)
-           console.log(products);
-           
+           axios.get("http://localhost:8000/fetchproducts/").then((response)=>{
+          console.log(response.data);
+          setProducts(response.data)
+          setLoading(false)
        }).catch((err)=>{
            console.log(err);
-           
+           setLoading(true)
        })
-   },[products])
+   },[])
     return <div>
         <div className={styles.topbar} >
             <div className={styles.header} >
@@ -39,7 +38,9 @@ export default function Home(){
         </div>
 
         <div className={styles.middlebar} >
-           
+           {
+            loading ? <p>Items loading</p> : products.map((item)=><p> {item.fields.product_name} </p>)
+           }
         </div>
     </div>
 }
