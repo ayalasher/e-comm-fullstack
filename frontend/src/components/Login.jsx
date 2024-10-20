@@ -1,6 +1,6 @@
 import styles from "./styles.module.css"
 import {json, Link}  from 'react-router-dom'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from 'axios'
 
 export default function Login() {
@@ -20,9 +20,17 @@ export default function Login() {
         }).catch((err)=>{
             console.log(err);
             console.log("Error fetching data");
+            setauth(false)
         }) ; 
         
     }
+
+
+    useEffect(()=>{
+        if (auth==true) {
+            alert("User logged in ")
+        }
+    },[])
     return <div> 
 
         <div className={styles.header} >
