@@ -2,29 +2,35 @@ import styles from "./styles.module.css"
 import {json, Link}  from 'react-router-dom'
 import { useEffect, useState } from "react"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
+
+
 
 export default function Login() {
     const [username , setusername] = useState("")
     const [userpassword, setuserpassword] = useState("")
     const [auth , setauth] = useState(false)
 
-    function loginfuntion (){        
-        
-         axios.post("http://localhost:8000/userlogin/",{
+    const loginfuntion = async  ()=>{
+        await  axios.post("http://localhost:8000/userlogin/",{
             "username":username,
             "userpassword":userpassword,
 
          }).then((response)=>{    
         console.log(response.data);
         setauth(true)
+        console.log("Hello");
+        const navigateto = useNavigate()
+        navigateto("/landingpage")
         }).catch((err)=>{
             console.log(err);
             console.log("Error fetching data");
             setauth(false)
         }) ; 
-        
     }
 
+    
+    
 
     useEffect(()=>{
         if (auth==true) {

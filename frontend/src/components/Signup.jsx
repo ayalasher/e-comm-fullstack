@@ -3,6 +3,7 @@ import { Link}  from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -15,6 +16,9 @@ export default function Signup() {
 
 
    
+
+
+   
     const signupfuntion = async ()=>{
        if (userpassword==cuserpassword) {
         await axios.post('http://localhost:8000/createuser/',{
@@ -24,6 +28,8 @@ export default function Signup() {
         }).then((response)=>{
           console.log(response);
           setisauth(true)
+          const navigateto = useNavigate();
+          navigateto("/landingpage")
         }).catch((err)=>{
             console.log(err);
             

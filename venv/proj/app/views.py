@@ -22,7 +22,7 @@ def createsuer(request):
         userpassword = createway.get("userpassword")
         newuser = User.objects.create_user(username=username,email=useremail,password=userpassword)
         newuser.save()
-        return JsonResponse({"message":"user created succesfully","status":status.HTTP_201_CREATED})
+        return JsonResponse({"message":"user created succesfully", "newuser":newuser ,"status":status.HTTP_201_CREATED})
     else:
         return JsonResponse({"message":"error creatring the user"})
         
@@ -42,12 +42,10 @@ def userlogin(request):
             global returnuseremail 
             returnusername = user.username
             returnuseremail = user.email
-            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"userpassword":user.email})
+            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"usernameTT":user.username,"userpassword":user.email})
         else:
-            return JsonResponse({"message":"user not authenticated","status":status.HTTP_401_UNAUTHORIZED})
-        
-    else:
-        return JsonResponse({"message":"POST method only"})
+            return JsonResponse({"message":"user not authenticated ","status":status.HTTP_401_UNAUTHORIZED})
+
         
     # return JsonResponse({"message":"auth OK","username":returnusername,"useremail":returnuseremail})
 
