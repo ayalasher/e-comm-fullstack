@@ -38,8 +38,13 @@ export default function Home(){
 
         <div className={styles.middlebar} >
            {
-            loading ? <p>Items loading</p> : products.map((item)=><p key={item.fields.product_name} > {item.fields.product_name} </p>)
+            loading ? <p>Items loading</p> : products.map((item)=> <div key={item.fields.product_name} > 
+                 <img src={item.fields.product_image} alt={item.fields.product_name} />
+                  <p  > {item.fields.product_name} </p> 
+                 
+             </div> )
            }
+    
         </div>
     </div>
 }

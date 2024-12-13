@@ -58,7 +58,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'proj.urls'
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Replace with your React app's origin
+    # "http://127.0.0.1:5173/signup/",  # React Dev Server
+]
 CORS_ALLOW_METHODS = (
     "DELETE",
     "GET",
@@ -77,9 +80,9 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 )
 
-CORS_ALLOW_CREDENTIALS: True
+CORS_ALLOW_CREDENTIALS= True
 
-CORS_ALLOW_PRIVATE_NETWORK:True
+# CORS_ALLOW_PRIVATE_NETWORK = True
 
 TEMPLATES = [
     {
@@ -147,8 +150,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-MEDIA_URL = 'proj/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'/proj/images')
+BASE_DIR2 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR2,'proj/images')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

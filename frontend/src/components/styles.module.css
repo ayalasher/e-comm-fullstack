@@ -8,6 +8,7 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+/* Small mobile phones */
 @media screen and  (min-width: 310px ) and (max-width: 450px ){
     
 .forminputs{
@@ -122,6 +123,7 @@ h3{
 
 }
 
+/* Large devices */
 @media screen and  (min-width: 450px ) and (max-width: 990px ){
     .fieldset{
         border-radius: 10px;
@@ -139,7 +141,7 @@ h3{
 
     .topbar{
     display: flex;
-}
+     }
 
 
 .linkbtn{
@@ -162,6 +164,7 @@ h3{
 }
 
 
+/* Large screens... Laptops and televisions..... */
 .forminputs{
     border-radius: 5px;
     border: 1px solid rgb(97, 97, 97,0.6);

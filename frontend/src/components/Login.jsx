@@ -10,33 +10,37 @@ export default function Login() {
     const [username , setusername] = useState("")
     const [userpassword, setuserpassword] = useState("")
     const [auth , setauth] = useState(false)
+    const navigateto = useNavigate()
 
     const loginfuntion = async  ()=>{
-        await  axios.post("http://localhost:8000/userlogin/",{
-            "username":username,
-            "userpassword":userpassword,
-
-         }).then((response)=>{    
+        try {
+            const response =  await  axios.post("http://localhost:8000/userlogin/",{
+                "username":username,
+                "password":userpassword,
+    
+             } ,  {
+                headers:{
+                    "Content-Type":"application/json"
+                } 
+             }  ) ;
         console.log(response.data);
         setauth(true)
         console.log("Hello");
-        const navigateto = useNavigate()
         navigateto("/landingpage")
-        }).catch((err)=>{
-            console.log(err);
-            console.log("Error fetching data");
-            setauth(false)
-        }) ; 
+        } catch (error) {
+        console.error("Error fetching data:", error );
+        setauth(false);
+        }
     }
 
     
     
 
-    useEffect(()=>{
-        if (auth==true) {
-            alert("User logged in ")
-        }
-    },[])
+    // useEffect(()=>{
+    //     if (auth==true) {
+    //         alert("User logged in ")
+    //     }
+    // },[auth])
     return <div> 
 
         <div className={styles.header} >
@@ -49,7 +53,7 @@ export default function Login() {
 
 
         <p className={styles.bordertesting} >Log into your account </p>
-        <form >
+        <form typeof="submit" >
             <fieldset className={styles.fieldset} >
                 <div className={styles.inputdiv} >
                     <input className={styles.forminputs} type="text" name="username" id="username" placeholder="Enter username" onChange={(e)=>setusername(e.target.value)}  />

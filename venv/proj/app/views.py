@@ -30,11 +30,13 @@ def createsuer(request):
     # return JsonResponse({"message":"auth OK","username":returnusername})
     
 @csrf_exempt
-def userlogin(request):
+# Making teh funtion asnychronous
+def  userlogin(request):
     if request.method == "POST":
         loginway = json.loads(request.body)
         username = loginway.get("username")
-        userpassword = loginway.get("userpassword")
+        userpassword = loginway.get("password")
+        # user = await request.auser()
         user = authenticate(request, username=username,password=userpassword)
         if user is not None:
             login(request,user)
@@ -42,7 +44,7 @@ def userlogin(request):
             global returnuseremail 
             returnusername = user.username
             returnuseremail = user.email
-            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"usernameTT":user.username,"userpassword":user.email})
+            return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"useremail":user.email})
         else:
             return JsonResponse({"message":"user not authenticated ","status":status.HTTP_401_UNAUTHORIZED})
 

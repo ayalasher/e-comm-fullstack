@@ -12,9 +12,9 @@ function App() {
   return <div>
     <Routes>
       <Route exact path="" element={<Home/>}  />
-      <Route path="/login" element={<Login/>}  />
-      <Route path="/signup" element={<Signup/>} />
-      <Route path="landingpage" element={<Landingpage/>}  />
+      <Route path="/login/" element={<Login/>}  />
+      <Route path="/signup/" element={<Signup/>} />
+      <Route path="/landingpage" element={<Landingpage/>}  />
       <Route path="/login/landingpage" element={<Landingpage/>}  />
       <Route path="/signup/landingpage" element={<Landingpage/>}  />
       <Route path="/cart" element={<Cart/>}  />

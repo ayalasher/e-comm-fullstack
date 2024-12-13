@@ -20,23 +20,33 @@ export default function Signup() {
 
    
     const signupfuntion = async ()=>{
-       if (userpassword==cuserpassword) {
-        await axios.post('http://localhost:8000/createuser/',{
-           "username":username,
-           "useremail":useremail,
-           "userpassword":userpassword
-        }).then((response)=>{
-          console.log(response);
-          setisauth(true)
-          const navigateto = useNavigate();
-          navigateto("/landingpage")
-        }).catch((err)=>{
-            console.log(err);
+
+        try {
+            if (userpassword==cuserpassword) {
+                const response =  await axios.post('http://localhost:8000/createuser/',{
+                   "username":username,
+                   "useremail":useremail,
+                   "userpassword":userpassword
+                } ,{
+                    headers:{
+                        "Content-Type":"application/json"
+                    }
+                } )
+                  console.log(response.data);
+                  setisauth(true)
+                  const navigateto = useNavigate();
+                  navigateto("/landingpage")
             
-        })
-       }else{
-        alert("Passwords not equal")
-       }   
+            }else{
+                alert("Passwords not equal")
+            }
+        } catch (error) {
+            console.error("Error fetching data:", error );
+            setisauth(false)
+        }
+
+
+         
     }
     return <div>
         <div className={styles.header} >
