@@ -37,14 +37,14 @@ export default function Home(){
         </div>
 
         <div className={styles.middlebar} >
-           {
-            loading ? <p>Items loading</p> : products.map((item)=> <div key={item.fields.product_name} > 
-                 <img src={item.fields.product_image} alt={item.fields.product_name} />
-                  <p  > {item.fields.product_name} </p> 
-                 
-             </div> )
-           }
-    
+          {
+                     loading ? <p>Items loading</p> : products.map((item)=> <div className={styles.itemcontainer} key={item.fields.product_name} > 
+                     <img className={styles.itemimage} src={`http://127.0.0.1:8000/media/${item.fields.product_image}`} alt={item.fields.product_name} />
+                      <p  ><strong>{item.fields.product_name}</strong> </p> 
+                      <p><strong>Price:</strong>{item.fields.product_price}</p>
+                      <button className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
+                      </div> )
+                    }
         </div>
     </div>
 }
