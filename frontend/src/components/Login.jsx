@@ -12,8 +12,16 @@ export default function Login() {
     const [auth , setauth] = useState(false)
     const navigateto = useNavigate()
 
-    const loginfuntion = async  ()=>{
+
+    function handlesubmit(e) {
+        e.preventDefault()
+    }
+
+    const loginfuntion =  async  ()=>{
+        console.log("before try block");
+        
         try {
+            console.log("try entry point");
             const response =  await  axios.post("http://localhost:8000/userlogin/",{
                 "username":username,
                 "password":userpassword,
@@ -21,12 +29,18 @@ export default function Login() {
              } ,  {
                 headers:{
                     "Content-Type":"application/json"
-                } 
+                },
+                withCredentials:true 
              }  ) ;
         console.log(response.data);
         setauth(true)
-        console.log("Hello");
-        navigateto("/landingpage")
+        // console.log("Hello");
+        navigateto("/landingpage" , {
+            state:{
+                USERNAME:response.data.username,
+                USEREMAIL:response.data.useremail
+            }
+        } )
         } catch (error) {
         console.error("Error fetching data:", error );
         setauth(false);
@@ -53,7 +67,7 @@ export default function Login() {
 
 
         <p className={styles.bordertesting} >Log into your account </p>
-        <form typeof="submit" >
+        <form typeof="submit" onSubmit={handlesubmit} >
             <fieldset className={styles.fieldset} >
                 <div className={styles.inputdiv} >
                     <input className={styles.forminputs} type="text" name="username" id="username" placeholder="Enter username" onChange={(e)=>setusername(e.target.value)}  />

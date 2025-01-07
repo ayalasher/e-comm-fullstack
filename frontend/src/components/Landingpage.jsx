@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from "react"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 
 
@@ -14,6 +16,28 @@ export default function Home(){
 
     const [products , setProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    const location = useLocation()  
+    const {USERNAME,USEREMAIL} = location.state || {}
+
+      const navigateto = useNavigate()
+        function  Moredetailshandler(item) {
+            navigateto("/moredetails" , {
+                state:{ 
+                    product_name:item.fields.product_name,
+                    product_price: item.fields.product_price ,
+                    product_dicount:item.fields.product_dicount,
+                    final_price:item.fields.final_price,
+                    product_quanity:item.fields.product_quanity,
+                    product_image:item.fields.product_image,
+                 },
+            } )
+        }
+        
+    
+        function addtocarthandler() {
+            //funtion to add an item to thecart
+            alert("Item added to cart")
+        }
  
     useEffect(()=>{
            axios.get("http://localhost:8000/fetchproducts/").then((response)=>{
@@ -29,6 +53,15 @@ export default function Home(){
         <div className={styles.topbar} >
             <div className={styles.header} >
                 <h3>M-shop</h3>
+                {
+                    USEREMAIL && USERNAME !== null ? 
+                    <div>
+                         <p>Welcome:<strong> {USERNAME} </strong></p> 
+                         <p>Email:<strong> {USEREMAIL} </strong></p>
+                    </div>
+                    : <p>error fetching user data</p>
+                }
+               
             </div>
 
             <div className={styles.btnsections} >
@@ -40,9 +73,13 @@ export default function Home(){
           {
                      loading ? <p>Items loading</p> : products.map((item)=> <div className={styles.itemcontainer} key={item.fields.product_name} > 
                      <img className={styles.itemimage} src={`http://127.0.0.1:8000/media/${item.fields.product_image}`} alt={item.fields.product_name} />
-                      <p  ><strong>{item.fields.product_name}</strong> </p> 
-                      <p><strong>Price:</strong>{item.fields.product_price}</p>
-                      <button className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
+                      <p className={styles.containertxt}  ><strong>{item.fields.product_name}</strong> </p> 
+                      <p className={styles.containertxt} ><strong>Price:</strong>{item.fields.product_price}</p>
+                      <div className={styles.bottombtndiv} >
+                       <button onClick={addtocarthandler} className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
+                       <button className={styles.addtocartbtn} onClick={()=>Moredetailshandler(item)} >See more</button>
+                      </div>
+                     
                       </div> )
                     }
         </div>

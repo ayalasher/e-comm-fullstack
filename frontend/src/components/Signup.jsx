@@ -13,37 +13,49 @@ export default function Signup() {
     const [userpassword , setuserpassword ] = useState("")
     const [cuserpassword , setcuserpassword] = useState("")
     const [isauth , setisauth] = useState(false)
+    const navigateto = useNavigate();
 
+
+
+    function handlesubmit(e) {
+        e.preventDefault()
+    }
 
    
 
 
    
     const signupfuntion = async ()=>{
-
-        try {
             if (userpassword==cuserpassword) {
-                const response =  await axios.post('http://localhost:8000/createuser/',{
-                   "username":username,
-                   "useremail":useremail,
-                   "userpassword":userpassword
-                } ,{
-                    headers:{
-                        "Content-Type":"application/json"
-                    }
-                } )
-                  console.log(response.data);
-                  setisauth(true)
-                  const navigateto = useNavigate();
-                  navigateto("/landingpage")
-            
+                try {
+                    const response =  await axios.post('http://localhost:8000/createuser/',{
+                        "username":username,
+                        "useremail":useremail,
+                        "userpassword":userpassword
+                     } ,{
+                         headers:{
+                             "Content-Type":"application/json"
+                         },
+                         withCredentials:true
+     
+                     } )
+                       console.log(response.data);
+                       setisauth(true)
+                       
+                       navigateto("/landingpage", {
+                         state:{
+                             USERNAME:response.data.username,
+                             USEREMAIL:response.data.useremail
+                         }
+                       } ) 
+                } catch{
+                    console.error("Error fetching data:");
+                    setisauth(false)
+                }
             }else{
                 alert("Passwords not equal")
             }
-        } catch (error) {
-            console.error("Error fetching data:", error );
-            setisauth(false)
-        }
+        
 
 
          
@@ -59,7 +71,7 @@ export default function Signup() {
 
 
         <p className={styles.bordertesting} >Create an account </p>
-        <form >
+        <form typeof='submit' onSubmit={handlesubmit} >
             <fieldset className={styles.fieldset} >
                 <div className={styles.inputdiv} >
                     <input className={styles.forminputs} type="email" name="useremail" id="useremail" placeholder="Set email" onChange={(e)=>setuseremail(e.target.value)}  />

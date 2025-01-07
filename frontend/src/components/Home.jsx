@@ -34,7 +34,7 @@ export default function Home(){
     
 
     function addtocarthandler() {
-        alert("Item added to cart")
+        alert("Sign up or login to add items to cart")
     }
  
     useEffect(()=>{

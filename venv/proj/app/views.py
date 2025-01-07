@@ -22,9 +22,9 @@ def createsuer(request):
         userpassword = createway.get("userpassword")
         newuser = User.objects.create_user(username=username,email=useremail,password=userpassword)
         newuser.save()
-        return JsonResponse({"message":"user created succesfully", "newuser":newuser ,"status":status.HTTP_201_CREATED})
+        return JsonResponse({"message":"user created succesfully", "username":User.username, "useremail":useremail ,"status":status.HTTP_201_CREATED})
     else:
-        return JsonResponse({"message":"error creatring the user"})
+        return JsonResponse({"message":"error crearing user" , "status" : status.HTTP_405_METHOD_NOT_ALLOWED })
         
     
     # return JsonResponse({"message":"auth OK","username":returnusername})
@@ -47,7 +47,8 @@ def  userlogin(request):
             return JsonResponse({"message":"authentication succesful","status":status.HTTP_200_OK,"username":user.username,"useremail":user.email})
         else:
             return JsonResponse({"message":"user not authenticated ","status":status.HTTP_401_UNAUTHORIZED})
-
+    else:
+        return JsonResponse({"message":"Wrong HTTP method ","status":status.HTTP_405_METHOD_NOT_ALLOWED})    
         
     # return JsonResponse({"message":"auth OK","username":returnusername,"useremail":returnuseremail})
 
