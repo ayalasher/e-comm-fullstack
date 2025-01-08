@@ -35,12 +35,17 @@ export default function Login() {
         console.log(response.data);
         setauth(true)
         // console.log("Hello");
-        navigateto("/landingpage" , {
-            state:{
-                USERNAME:response.data.username,
-                USEREMAIL:response.data.useremail
-            }
-        } )
+        if (response.data.username&&response.data.useremail) {
+            navigateto("/landingpage" , {
+                state:{
+                    USERNAME:response.data.username,
+                    USEREMAIL:response.data.useremail
+                }
+            } ) 
+        } else {
+           alert("Invalid username or password") 
+        }
+       
         } catch (error) {
         console.error("Error fetching data:", error );
         setauth(false);

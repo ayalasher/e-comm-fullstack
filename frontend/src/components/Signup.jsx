@@ -25,41 +25,42 @@ export default function Signup() {
 
 
    
-    const signupfuntion = async ()=>{
-            if (userpassword==cuserpassword) {
-                try {
-                    const response =  await axios.post('http://localhost:8000/createuser/',{
-                        "username":username,
-                        "useremail":useremail,
-                        "userpassword":userpassword
-                     } ,{
-                         headers:{
-                             "Content-Type":"application/json"
-                         },
-                         withCredentials:true
-     
-                     } )
-                       console.log(response.data);
-                       setisauth(true)
-                       
-                       navigateto("/landingpage", {
-                         state:{
-                             USERNAME:response.data.username,
-                             USEREMAIL:response.data.useremail
-                         }
-                       } ) 
-                } catch{
-                    console.error("Error fetching data:");
-                    setisauth(false)
+    const signupfuntion = async () => {
+        if (userpassword === cuserpassword) {
+            try {
+                const response = await axios.post('http://localhost:8000/createuser/', {
+                    "username": username,
+                    "useremail": useremail,
+                    "userpassword": userpassword
+                }, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    withCredentials: true
+                });
+    
+                if (response.data) {
+                    console.log("Signup successful:", response.data);
+                    setisauth(true);
+                    navigateto("/landingpage", {
+                        state: {
+                            USERNAME: response.data.username,
+                            USEREMAIL: response.data.useremail
+                        }
+                    });
                 }
-            }else{
-                alert("Passwords not equal")
+            } catch (error) {
+                console.error("Error during signup:", error.response?.data || error.message);
+                setisauth(false);
+                alert("Signup failed. Please try again.");
             }
-        
+        } else {
+            alert("Passwords do not match");
+        }
+    };
 
 
-         
-    }
+
     return <div>
         <div className={styles.header} >
             <h3>M-shop</h3>
