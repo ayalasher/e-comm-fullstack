@@ -31,6 +31,11 @@ export default function Home(){
              },
         } )
     }
+    
+
+    function addtocarthandler() {
+        alert("Sign up or login to add items to cart")
+    }
  
     useEffect(()=>{
            axios.get("http://localhost:8000/fetchproducts/").then((response)=>{
@@ -64,7 +69,11 @@ export default function Home(){
             <img className={styles.itemimage} src={`http://127.0.0.1:8000/media/${item.fields.product_image}`} alt={item.fields.product_name} />
              <p className={styles.containertxt}  ><strong>{item.fields.product_name}</strong> </p> 
              <p className={styles.containertxt} ><strong>Price:</strong>{item.fields.product_price}</p>
-             <button onClick={()=>Moredetailshandler(item)} className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
+             <div className={styles.bottombtndiv} >
+              <button onClick={addtocarthandler} className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
+              <button className={styles.addtocartbtn} onClick={()=>Moredetailshandler(item)} >See more</button>
+             </div>
+            
              </div> )
            }
         </div>

@@ -58,10 +58,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'proj.urls'
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Replace with your React app's origin
-    # "http://127.0.0.1:5173/signup/",  # React Dev Server
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:5173",  # Replace with your React app's origin
+#     # "http://127.0.0.1:5173/signup/",  # React Dev Server
+# ]
 CORS_ALLOW_METHODS = (
     "DELETE",
     "GET",
@@ -81,6 +81,7 @@ CORS_ALLOW_HEADERS = (
 )
 
 CORS_ALLOW_CREDENTIALS= True
+CORS_ALLOW_ALL_ORIGINS = True
 
 # CORS_ALLOW_PRIVATE_NETWORK = True
 
