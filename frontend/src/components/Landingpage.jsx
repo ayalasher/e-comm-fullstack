@@ -8,6 +8,8 @@ import { useEffect } from "react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useLocation } from "react-router-dom"
+// For receiving the data sent to the receiving pages
+
 
 
 
@@ -16,6 +18,7 @@ export default function Home(){
 
     const [products , setProducts] = useState([])
     const [loading, setLoading] = useState(true)
+    // variable desctructring and keeping the items.....
     const location = useLocation()  
     const {USERNAME,USEREMAIL} = location.state || {}
 
@@ -75,6 +78,8 @@ export default function Home(){
                      <img className={styles.itemimage} src={`http://127.0.0.1:8000/media/${item.fields.product_image}`} alt={item.fields.product_name} />
                       <p className={styles.containertxt}  ><strong>{item.fields.product_name}</strong> </p> 
                       <p className={styles.containertxt} ><strong>Price:</strong>{item.fields.product_price}</p>
+                      {/* testing out for id of the products */}
+                      {/* <p className={styles.containertxt} ><strong>Price:</strong>{item.pk}</p> */}
                       <div className={styles.bottombtndiv} >
                        <button onClick={addtocarthandler} className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
                        <button className={styles.addtocartbtn} onClick={()=>Moredetailshandler(item)} >See more</button>

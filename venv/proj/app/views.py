@@ -5,7 +5,7 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , logout , login
-from .models import Products , Cart
+from .models import Products , Cart , CartItem
 from django.core.serializers import serialize
 from django_daraja.mpesa.core import MpesaClient
 from rest_framework import status
@@ -78,48 +78,44 @@ def fetchproducts(request):
     data = serialize("json",products,fields=("product_name","product_type ","product_price", "product_dicount" , "final_price" , "product_quanity" , "product_image" ))
     return HttpResponse(data, content_type="application/json" , status=status.HTTP_200_OK )
 
-
-@csrf_exempt
+@csrf_exempt 
 def addtocart(request):
     if request.method == "POST":
-        cartway = json.loads(request.body)
-        product_ID = cartway.get("product_ID")
-        product = Products.objects.get(id=product_ID)
-        cart_item, created = Cart.objects.get_or_create(product=product,user=request.user)
-        Cart.quantity += 1
-        cart_item.save()
-        return JsonResponse({"message":"item added to cart","status":status.HTTP_200_OK})
-        # product_type = cartway.get("product_type")
-        # product_price = cartway.get("product_price")
-        # product_discount = cartway.get("product_discount")
-        # final_price = cartway.get(product_price-product_discount)
-        # product_quantity = cartway.get()  #Willl come to finish up
-        # product_image = cartway.get("product_image")
-        # authstatus = request.User.is_authenticated()
-        # if authstatus :
-        #     newcartitem = Cart.objects.create(product_name=product_name,product_type=product_type,product_price=product_price,product_discount=product_discount,final_price=final_price,product_quantity=product_quantity,product_image=product_image)
-        #     newcartitem.save()
-        #     return JsonResponse({"message":"item added to cart","status":status.HTTP_200_OK})
-        # else:
-        #     return JsonResponse({"message":"Log in or sign up to add tems to cart" ,"status":status.HTTP_401_UNAUTHORIZED })
-
-# @csrf_exempt
-# def addtocart(request,product):
-
-
-
-# @csrf_exempt
-# def deletefromcart(request):
-#     if request.method == "DELETE":
-#         way = json.loads(request.body)
-#         productid = way.get("id")
-#         tobedeleted = Cart.objects.get(id=productid)
-#         authstatus = request.User.is_authenticated()
-#         if authstatus:
-#             tobedeleted.delete()
-#             return JsonResponse({"mesage":"Item removed from cart succesfully","status":status.HTTP_200_OK})
-#         else:
-#             return JsonResponse({"mesage":"Log in to remove item from cart","status":status.HTTP_401_UNAUTHORIZED})
+        try:
+            cartway = json.loads(request.body)
+            product_ID = cartway.get("product_ID")
+            Product_quantity = cartway.get("Product_quantity", 1)
+            
+            # Get or create cart for user
+            cart_obj, created = Cart.objects.get_or_create(
+                user=request.user,
+                defaults={'quantity': 0}
+            )
+            
+            # Get product and create cart item
+            item = Products.objects.get(pk=product_ID)
+            CartItem.objects.create(
+                cart=cart_obj, 
+                product=item, 
+                product_quantity=Product_quantity,
+                user=request.user
+            )
+            
+            return JsonResponse({
+                "message": "item added to cart",
+                "status": status.HTTP_200_OK
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                "message": str(e),
+                "status": status.HTTP_400_BAD_REQUEST
+            })
+            
+    return JsonResponse({
+        "message": "Wrong HTTP method",
+        "status": status.HTTP_405_METHOD_NOT_ALLOWED
+    })
 
 @csrf_exempt
 def removefromcart(request):

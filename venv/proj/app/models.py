@@ -27,4 +27,11 @@ class Cart(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     user = models.ForeignKey(User , on_delete=models.CASCADE , null=True )
     date_added = models.DateField(default=datetime.now)
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    product_quantity = models.IntegerField(default=0)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
    
