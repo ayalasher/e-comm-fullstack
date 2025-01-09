@@ -57,9 +57,9 @@ export default function Home(){
             </div>
 
             <div className={styles.btnsections} >
-               <Link className={styles.linkbtn} to={"/login"} >Log in </Link> 
-               <Link  className={styles.linkbtn} to={"/signup"} >Sign up</Link>
-                <Link  className={styles.linkbtn} to={"/cart"} > <FontAwesomeIcon icon={faCartShopping} /> </Link>
+               <Link title="login" className={styles.linkbtn} to={"/login"} >Log in </Link> 
+               <Link  title="signup" className={styles.linkbtn} to={"/signup"} >Sign up</Link>
+                <Link title="Cart" className={styles.linkbtn} to={"/cart"} > <FontAwesomeIcon icon={faCartShopping} /> </Link>
             </div>
         </div>
 

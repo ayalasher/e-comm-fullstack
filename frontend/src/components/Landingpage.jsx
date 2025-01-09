@@ -30,7 +30,7 @@ export default function Home(){
       function userlogouthandler() {
         axios.get("http://localhost:8000/userlogout/").then((response)=>{
             console.log(response.data);
-            alert("user logging out")
+            alert("Logging out.Click ok to continue")
             navigateto("/login")
             
         })
@@ -82,8 +82,8 @@ export default function Home(){
             </div>
 
             <div className={styles.btnsections} >
-                <button onClick={userlogouthandler} className={styles.linkbtn} > <RiLogoutBoxLine /></button>
-                <Link  className={styles.linkbtn} to={"/cart"} > <FontAwesomeIcon icon={faCartShopping} /> </Link>
+                <button title="logout" onClick={userlogouthandler} className={styles.linkbtn} > <RiLogoutBoxLine /></button>
+                <Link title="cart" className={styles.linkbtn} to={"/cart"} > <FontAwesomeIcon icon={faCartShopping} /> </Link>
             </div>
         </div>
 
@@ -96,8 +96,8 @@ export default function Home(){
                       {/* testing out for id of the products */}
                       {/* <p className={styles.containertxt} ><strong>Price:</strong>{item.pk}</p> */}
                       <div className={styles.bottombtndiv} >
-                       <button onClick={addtocarthandler} className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
-                       <button className={styles.addtocartbtn} onClick={()=>Moredetailshandler(item)} >See more</button>
+                       <button title="add to cart" onClick={addtocarthandler} className={styles.addtocartbtn} ><FontAwesomeIcon icon={faCartShopping} /></button>
+                       <button title="see more details" className={styles.addtocartbtn} onClick={()=>Moredetailshandler(item)} >See more</button>
                       </div>
                      
                       </div> )
