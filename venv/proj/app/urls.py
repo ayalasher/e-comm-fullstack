@@ -10,8 +10,8 @@ urlpatterns = [
     path("changepassword/",views.changepassword, name="change password"),
     path("fetchproducts/",views.fetchproducts , name="fetch products" ),
     path("addtocart/" , views.addtocart, name="add to cart" ),
-    path("deletefromcart",views.fetchcartitems,name="fetch cart items"),
+    path("deletefromcart/",views.removefromcart,name="remove item from cart"),
     path("fetchcartitems/",views.fetchcartitems, name="fetch cart items"),
     path("postitems",views.postitems, name="post items to e-store"),
-    path("mpesadaraja/" , views.mpesadaraja , name="mpesa daraja"   )
+    path("mpesadaraja/" , views.mpesadaraja , name="mpesa daraja")
 ]
