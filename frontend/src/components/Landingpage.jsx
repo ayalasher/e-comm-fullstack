@@ -94,6 +94,7 @@ export default function Home(){
                      <img className={styles.itemimage} src={`http://127.0.0.1:8000/media/${item.fields.product_image}`} alt={item.fields.product_name} />
                       <p className={styles.containertxt}  ><strong>{item.fields.product_name}</strong> </p> 
                       <p className={styles.containertxt} ><strong>Price:</strong>{item.fields.product_price}</p>
+                      {/* <p className={styles.containertxt} ><strong>Price:</strong>{item.pk}</p> */}
                       {/* testing out for id of the products */}
                       {/* <p className={styles.containertxt} ><strong>Price:</strong>{item.pk}</p> */}
                       <div className={styles.bottombtndiv} >

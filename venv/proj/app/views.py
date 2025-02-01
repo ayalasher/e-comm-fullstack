@@ -78,44 +78,71 @@ def fetchproducts(request):
     data = serialize("json",products,fields=("product_name","product_type ","product_price", "product_dicount" , "final_price" , "product_quanity" , "product_image" ))
     return HttpResponse(data, content_type="application/json" , status=status.HTTP_200_OK )
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+from rest_framework import status
+from .models import Cart, CartItem, Products
+import json
+
 @csrf_exempt 
 def addtocart(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({
+            "message": "Please login first",
+            "status": status.HTTP_401_UNAUTHORIZED
+        })
+
     if request.method == "POST":
         try:
             cartway = json.loads(request.body)
-            product_ID = cartway.get("product_ID")
-            Product_quantity = cartway.get("Product_quantity", 1)
+            product_id = cartway.get("product_ID")
+            product_quantity = cartway.get("Product_quantity", 1)
             
-            # Get or create cart for user
-            cart_obj, created = Cart.objects.get_or_create(
+            # Get or create cart
+            cart_obj, _ = Cart.objects.get_or_create(
                 user=request.user,
                 defaults={'quantity': 0}
             )
             
-            # Get product and create cart item
-            item = Products.objects.get(pk=product_ID)
-            CartItem.objects.create(
-                cart=cart_obj, 
-                product=item, 
-                product_quantity=Product_quantity,
-                user=request.user
+            # Get product
+            product = get_object_or_404(Products, pk=product_id)
+            
+            # Get or create cart item
+            cart_item, created = CartItem.objects.get_or_create(
+                cart=cart_obj,
+                product=product,
+                user=request.user,
+                defaults={'product_quantity': product_quantity}
             )
             
+            # Update quantity if item exists
+            if not created:
+                cart_item.product_quantity += product_quantity
+                cart_item.save()
+
             return JsonResponse({
-                "message": "item added to cart",
+                "message": "Item added to cart",
                 "status": status.HTTP_200_OK
             })
             
+        except Products.DoesNotExist:
+            return JsonResponse({
+                "message": "Product not found",
+                "status": status.HTTP_404_NOT_FOUND
+            })
         except Exception as e:
             return JsonResponse({
                 "message": str(e),
                 "status": status.HTTP_400_BAD_REQUEST
             })
-            
+    
     return JsonResponse({
-        "message": "Wrong HTTP method",
+        "message": "Invalid request method",
         "status": status.HTTP_405_METHOD_NOT_ALLOWED
     })
+
+
 
 @csrf_exempt
 def removefromcart(request):
