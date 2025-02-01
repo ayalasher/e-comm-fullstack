@@ -75,6 +75,7 @@ export default function Home(){
                     <div>
                          <p>Welcome:<strong> {USERNAME} </strong></p> 
                          <p>Email:<strong> {USEREMAIL} </strong></p>
+                         {/* <p>finding out where we are</p> */}
                     </div>
                     : <p>error fetching user data</p>
                 }
