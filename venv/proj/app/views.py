@@ -95,53 +95,44 @@ def addtocart(request):
 
     if request.method == "POST":
         try:
-            cartway = json.loads(request.body)
-            product_id = cartway.get("product_ID")
-            product_quantity = cartway.get("Product_quantity", 1)
-            
-            # Get or create cart
-            cart_obj, _ = Cart.objects.get_or_create(
-                user=request.user,
-                defaults={'quantity': 0}
-            )
+            data = json.loads(request.body)
+            product_id = data.get("product_ID")
             
             # Get product
-            product = get_object_or_404(Products, pk=product_id)
+            product = get_object_or_404(Products, id=product_id)
             
-            # Get or create cart item
-            cart_item, created = CartItem.objects.get_or_create(
-                cart=cart_obj,
-                product=product,
+            # Create cart item with product data
+            cart_item, created = Cart.objects.get_or_create(
                 user=request.user,
-                defaults={'product_quantity': product_quantity}
+                product_data=product,
+                defaults={
+                    'quantity': 1
+                }
             )
             
-            # Update quantity if item exists
             if not created:
-                cart_item.product_quantity += product_quantity
+                cart_item.quantity += 1
                 cart_item.save()
 
             return JsonResponse({
                 "message": "Item added to cart",
-                "status": status.HTTP_200_OK
+                "status": status.HTTP_200_OK,
+                "product": {
+                    "id": product.id,
+                    "name": product.product_name
+                }
             })
             
-        except Products.DoesNotExist:
-            return JsonResponse({
-                "message": "Product not found",
-                "status": status.HTTP_404_NOT_FOUND
-            })
         except Exception as e:
             return JsonResponse({
                 "message": str(e),
                 "status": status.HTTP_400_BAD_REQUEST
             })
-    
+
     return JsonResponse({
-        "message": "Invalid request method",
+        "message": "Invalid method",
         "status": status.HTTP_405_METHOD_NOT_ALLOWED
     })
-
 
 
 @csrf_exempt
